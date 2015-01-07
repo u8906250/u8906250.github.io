@@ -245,3 +245,20 @@ a {
 .cf {
   zoom:1;
 }
+
+.cd-timeline-profile-img {
+  position: relative;
+  top: 50%;
+  margin-top: -60px;
+}
+.cd-timeline-profile-img img {
+  display: block;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  margin-left: -30px;
+  margin-top: -30px;
+}
