@@ -30,8 +30,15 @@
           <a href="/about_cat/?timeline_path=https://dl.dropboxusercontent.com/u/41496322/jy_timeline_files/timeline.json"><img style="border-radius: 50%" src="https://dl.dropboxusercontent.com/u/41496322/jy_timeline_files//profile.jpg"></a>
         </div>
       </section>
+      Day <span id="day">188</span>, without you.
     </div>
 
     
   </body>
+  <script>
+  	var endDate = new Date("10/16/2014");
+	var nowDate = new Date();
+	var day = Math.round((nowDate-endDate)/(1000*60*60*24));
+	document.getElementById("day").innerHTML = day;
+  </script>
 </html>
