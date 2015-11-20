@@ -4,43 +4,66 @@
     <meta charset='utf-8'>
     <meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <title>jycatty.cc</title>
   </head>
   <body>
-    <header>
-      <div class="container">
-
-        <section id="downloads">
-          <a href="https://github.com/u8906250" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        <div>
-          <a href="/about_cat/?timeline_path=https://dl.dropboxusercontent.com/u/41496322/cat_timeline_files/timeline.json"><img style="border-radius: 50%" src="https://dl.dropboxusercontent.com/u/41496322/cat_timeline_files//profile.png" draggable="true"></a>
+    <div id="canvas-wrap">
+      <canvas id="starrynight"></canvas>
+        <div id="overlay">
+          <a href="/about_cat/?timeline_path=https://dl.dropboxusercontent.com/u/41496322/cat_timeline_files/timeline.json"><img style="border-radius: 50%" src="https://dl.dropboxusercontent.com/u/41496322/cat_timeline_files//profile.png"></a>
           <a href="/about_cat/?timeline_path=https://dl.dropboxusercontent.com/u/41496322/jy_timeline_files/timeline.json"><img style="border-radius: 50%" src="https://dl.dropboxusercontent.com/u/41496322/jy_timeline_files//profile.jpg"></a>
+      	  <div id="day"></div>
         </div>
-      </section>
-      Day <span id="day">0</span>, without you.
     </div>
-
   </body>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script>
-  	var endDate = new Date("10/16/2014");
+	function drawing_star(ctx, xMax, yMax) {
+		var randomX = Math.floor((Math.random()*xMax)+1);
+		var randomY = Math.floor((Math.random()*yMax)+1);
+		var randomSize = Math.floor((Math.random()*2)+1);
+		var randomOpacityOne = Math.floor((Math.random()*9)+1);
+		var randomOpacityTwo = Math.floor((Math.random()*9)+1);
+		var randomHue = Math.floor((Math.random()*360)+1);
+		if(randomSize>1) {
+			ctx.shadowBlur = Math.floor((Math.random()*15)+5);
+			ctx.shadowColor = "white";
+		}
+		ctx.fillStyle = "hsla("+randomHue+", 30%, 80%, ."+randomOpacityOne+randomOpacityTwo+")";
+		ctx.fillRect(randomX, randomY, randomSize, randomSize);
+	}
+	/*
+	function drawing() {
+		var c = document.getElementById('starrynight');
+		var ctx = c.getContext('2d');
+		var xMax = c.width = window.screen.availWidth;
+		var yMax = c.height = window.screen.availHeight;
+
+		var hmTimes = Math.round(xMax + yMax);	
+		for(var i=0; i<=hmTimes; i++) {
+			drawing_star(ctx, xMax, yMax);
+		}
+	}
+	drawing();
+	*/
+	var endDate = new Date("10/16/2014");
 	var nowDate = new Date();
 	var day = Math.round((nowDate-endDate)/(1000*60*60*24));
+
 	var count=0;
 	var counter = setInterval(timer, 10);
+	var c = document.getElementById('starrynight');
+	var ctx = c.getContext('2d');
+	var xMax = c.width = window.screen.availWidth;
+	var yMax = c.height = window.screen.availHeight;
 	function timer() {
 		if (count > day) {
 			clearInterval(counter);
+			document.getElementById("day").innerHTML = 'Day '+ day + ' , without you.';
 			return;
 		}
-		document.getElementById("day").innerHTML = count++;
+		drawing_star(ctx, xMax, yMax);
+		count++;
 	}
   </script>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 </html>
